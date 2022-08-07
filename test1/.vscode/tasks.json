@@ -1,0 +1,55 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "package (functions)",
+			"command": "mvn clean package",
+			"type": "shell",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"options": {
+				"cwd": "${workspaceFolder}/mslearn-build-api-azure-functions\\api"
+			}
+		},
+		{
+			"type": "func",
+			"command": "host start",
+			"problemMatcher": "$func-node-watch",
+			"isBackground": true,
+			"dependsOn": "npm build (functions)",
+			"options": {
+				"cwd": "${workspaceFolder}/mslearn-build-api-azure-functions\\api"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "npm build (functions)",
+			"command": "npm run build",
+			"dependsOn": "npm install (functions)",
+			"problemMatcher": "$tsc",
+			"options": {
+				"cwd": "${workspaceFolder}/mslearn-build-api-azure-functions\\api"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "npm install (functions)",
+			"command": "npm install",
+			"options": {
+				"cwd": "${workspaceFolder}/mslearn-build-api-azure-functions\\api"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "npm prune (functions)",
+			"command": "npm prune --production",
+			"dependsOn": "npm build (functions)",
+			"problemMatcher": [],
+			"options": {
+				"cwd": "${workspaceFolder}/mslearn-build-api-azure-functions\\api"
+			}
+		}
+	]
+}
